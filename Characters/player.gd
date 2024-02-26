@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 
 @export var speed : float = 250.0
-@export var jump_velocity : float = -200.0
+@export var jump_velocity : float = -150.0
 @export var double_jump_velocity : float = -150.0
 @export var dash_velocity : float = 900.0
 
@@ -60,10 +60,12 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = move_toward(velocity.x, 0, speed)
 	
-	if dashing:
-		velocity.x = direction.x * dash_velocity
-	else:
-		velocity.x = move_toward(velocity.x, 0, dash_velocity)
+	
+
+	#if direction.x == 0 && dashing:
+		#velocity.x = direction.x * dash_velocity
+	#else:
+		#velocity.x = move_toward(velocity.x, 0, dash_velocity)
 	
 	
 	move_and_slide()

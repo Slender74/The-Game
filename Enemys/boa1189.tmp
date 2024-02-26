@@ -1,0 +1,152 @@
+[gd_scene load_steps=19 format=3 uid="uid://uxge53lcrh1u"]
+
+[ext_resource type="Script" path="res://Enemys/boar.gd" id="1_3xknt"]
+[ext_resource type="Texture2D" uid="uid://1fa0f3aks64j" path="res://Art/Legacy-Fantasy - High Forest 2.3/Mob/Boar/Idle/Idle-Sheet-export-Back.png" id="1_pike7"]
+[ext_resource type="Texture2D" uid="uid://cc0k4awavwn2x" path="res://Art/Legacy-Fantasy - High Forest 2.3/Mob/Boar/Walk/Walk-Base-SheetBlack.png" id="2_78cws"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_30qal"]
+size = Vector2(38, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2ea08"]
+atlas = ExtResource("1_pike7")
+region = Rect2(0, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8s8v7"]
+atlas = ExtResource("1_pike7")
+region = Rect2(48, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gxufk"]
+atlas = ExtResource("1_pike7")
+region = Rect2(96, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wux6k"]
+atlas = ExtResource("1_pike7")
+region = Rect2(144, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_agyff"]
+atlas = ExtResource("2_78cws")
+region = Rect2(0, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e8580"]
+atlas = ExtResource("2_78cws")
+region = Rect2(48, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ki366"]
+atlas = ExtResource("2_78cws")
+region = Rect2(96, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a7get"]
+atlas = ExtResource("2_78cws")
+region = Rect2(144, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b0mrw"]
+atlas = ExtResource("2_78cws")
+region = Rect2(192, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0483m"]
+atlas = ExtResource("2_78cws")
+region = Rect2(240, 0, 48, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jfu4i"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2ea08")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8s8v7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gxufk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wux6k")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_agyff")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e8580")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ki366")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a7get")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b0mrw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0483m")
+}],
+"loop": true,
+"name": &"run",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_ahw8e"]
+resource_name = "enemy_movment"
+length = 5.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Area2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(200, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_4o1hx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Area2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_q1x7r"]
+_data = {
+"RESET": SubResource("Animation_4o1hx"),
+"enemy_movment": SubResource("Animation_ahw8e")
+}
+
+[node name="Boar" type="Node2D"]
+script = ExtResource("1_3xknt")
+
+[node name="Area2D" type="Area2D" parent="."]
+z_index = -1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(1, 6)
+shape = SubResource("RectangleShape2D_30qal")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Area2D"]
+position = Vector2(2, 3)
+sprite_frames = SubResource("SpriteFrames_jfu4i")
+animation = &"run"
+autoplay = "run"
+frame_progress = 0.650269
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_q1x7r")
+}
+autoplay = "enemy_movment"
